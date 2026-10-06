@@ -14,7 +14,9 @@ Main branch
 
 Added
 =====
-
+* :ref:`Experimental <nrf:software_maturity>` peripheral-only (HID) library variant for the nRF54L Series devices with Shorter Connection Intervals, Frame Space Update, connection subrating, and LL Extended Feature Set support.
+  The variant is distributed as ``libsoftdevice_controller_peripheral_hid.a`` and is selected automatically on nRF54L when the peripheral-only configuration is used without features that require the full peripheral library (for example Data Length Extensions).
+  It uses less NVM than ``libsoftdevice_controller_peripheral.a`` by omitting features not needed for this configuration.
 * A new control parameter `SDC_HCI_VS_CS_PARAM_TYPE_CS_VREG_MODE_SET` to :c:func:`sdc_hci_cmd_vs_cs_params_set`.
   This allows for setting the voltage regulator mode to be used during a Channel Sounding procedure. (DRGN-29193)
 * The vendor-specific HCI command DTM Command, a command group for all vendor-specific DTM operations.
@@ -85,6 +87,8 @@ Bug fixes
 * Fixed an issue where the controller, acting as a central, would elevate scheduling priority for an extended period when sending a control procedure with an instant to a peripheral using a large peripheral latency. (DRGN-29680)
 * Fixed an issue where the LE Enhanced Connection Complete event or the LE Extended Advertising Report event could report the identity address of a device in the resolving list instead of the address of the actual peer.
   This could happen when scanning and initiating at the same time with different scan parameters. (DRGN-28181)
+* Fixed a rare issue where the controller, acting as an Isochronous Broadcaster, could transmit a BIGInfo with an invalid BIG offset.
+  This would only occur with an ISO interval longer than 245 ms. (DRGN-30055)
 
 nRF Connect SDK v3.4.0
 **********************
@@ -1270,6 +1274,7 @@ Changes
   Refer to the README for their corresponding supported feature sets.
   The new names are now:
 
+    * ``libsoftdevice_controller_peripheral_hid.a``
     * ``libsoftdevice_controller_peripheral.a``
     * ``libsoftdevice_controller_central.a``
     * ``libsoftdevice_controller_multirole.a``
