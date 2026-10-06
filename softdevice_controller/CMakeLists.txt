@@ -56,6 +56,8 @@ if(CONFIG_BT_LL_SOFTDEVICE AND CONFIG_BT_LL_SOFTDEVICE_BUILD_TYPE_LIB)
 
     if(CONFIG_BT_LL_SOFTDEVICE_PERIPHERAL)
       set(lib_dir_path ${lib_dir_path}peripheral.a)
+    elseif(CONFIG_BT_LL_SOFTDEVICE_PERIPHERAL_HID)
+      set(lib_dir_path ${lib_dir_path}peripheral_hid.a)
     elseif(CONFIG_BT_LL_SOFTDEVICE_CENTRAL)
       set(lib_dir_path ${lib_dir_path}central.a)
     elseif(CONFIG_BT_LL_SOFTDEVICE_MULTIROLE)
